@@ -1,17 +1,20 @@
 package com.rafael.moviedbapp.data.repositories
 
-class MoviesRepository {
+import com.rafael.moviedbapp.data.datasource.MovieApi
+import javax.inject.Inject
 
-    private fun getAllCategories() {
 
+class MoviesRepository @Inject constructor(val api: MovieApi ){
+
+    fun getAllCategories() {
+        var test = api
+        var test2 = 0
     }
 
-    private fun getAllMoviesFromThatCategory(){
-
+    fun getAllMoviesFromThatCategory(){
     }
 
-    private fun getTrendingMovies(){
-
+    fun getTrendingMovies(){
     }
 
 }

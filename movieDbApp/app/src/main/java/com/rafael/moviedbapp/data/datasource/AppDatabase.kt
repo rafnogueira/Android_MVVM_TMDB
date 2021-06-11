@@ -8,5 +8,7 @@ import com.rafael.moviedbapp.data.models.FavoriteMovie
 @Database(entities = arrayOf(FavoriteMovie::class), version = 1)
 
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun favoriteMoviesDao(): FavoriteMoviesDao
+
 }

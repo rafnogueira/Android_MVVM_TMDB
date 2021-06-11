@@ -40,7 +40,6 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,8 +65,6 @@ class MainFragment : Fragment() {
 
         var insertDb = view.findViewById<Button>(R.id.insertDb)
 
-
-        initializeLocalDb()
     }
 
     private fun insertDbTest(){
@@ -81,24 +78,11 @@ class MainFragment : Fragment() {
             "",
             ""
         );
-
-
-
     }
 
     private fun getDbValues(){
-
         val result = viewModel.fetchMoviesCategories();
         val test =  0;
     }
 
-    private fun initializeLocalDb(){
-        db = Room.databaseBuilder(
-            requireContext(),
-            AppDatabase::class.java, "fastshop-movies-db"
-        ).build()
-
-
-
-    }
 }

@@ -1,88 +1,114 @@
 package com.rafael.moviedbapp.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.room.Room
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.RoomDatabase
 import coil.load
 import com.rafael.moviedbapp.R
-import com.rafael.moviedbapp.data.dao.FavoriteMoviesDao
-import com.rafael.moviedbapp.data.datasource.AppDatabase
-import com.rafael.moviedbapp.data.models.FavoriteMovie
+import com.rafael.moviedbapp.data.datasource.MovieApi
+import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import kotlinx.android.synthetic.main.main_fragment.*
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    companion object { fun newInstance() = MainFragment() }
+    companion object {
+        fun newInstance() = MainFragment()
+    }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var currentRootView: View
 
-    private var db: RoomDatabase? = null
-
-    var imageURLTest: String = "https://www.themoviedb.org/t/p/w1280/87aWrVqaVhXhblhO7sYHLC2y8TT.jpg"
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        currentRootView = inflater.inflate(R.layout.main_fragment, container, false)
+        return currentRootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        //Observers para nos comunicarmos com a interface (View) de forma assíncrona sem travar a mainThread
+        val favoritedMovieObserver = viewModel.favoriteMovieAdded.observeForever { isAddedFlag ->
+            isAddedFlag?.let {
+                if (it)
+                    Toast.makeText(
+                        requireContext(),
+                        "Filme adicionado aos favoritos sucesso!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                else
+                    Toast.makeText(
+                        requireContext(),
+                        "Ocorreu um erro ao salvar seu filme no banco local!",
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        var imageViewTest = view.findViewById<ImageView>(R.id.imageTest)
-
-        var insertDbBtn = view.findViewById<Button>(R.id.insertDb).setOnClickListener {
-            insertDbTest()
-        }
-
-
-        var recoverDbBtn = view.findViewById<Button>(R.id.recoverDb).setOnClickListener{
+        view.findViewById<Button>(R.id.recoverDb).setOnClickListener {
             getDbValues()
         }
 
-
-        imageViewTest?.load(imageURLTest) {
-            crossfade(true)
-            placeholder(R.drawable.selection_band_overlay)
-        }
-
-        var insertDb = view.findViewById<Button>(R.id.insertDb)
-
     }
 
-    private fun insertDbTest(){
-        val movieTest = FavoriteMovie(
-            0,
+    private fun insertDbTest() {
+        val movieTest = Movie(
             1,
             "Movie Test",
             "",
             "",
-            1,
+            "asd",
             "",
             ""
         );
+
+        viewModel.insertMovieToFavorites(movieTest)
+        val test = 0;
     }
 
-    private fun getDbValues(){
-        val result = viewModel.fetchMoviesCategories();
-        val test =  0;
+    private fun getDbValues() {
+
+        val clubeLutaId = "550"
+
+        viewModel.fetchMovieDetails(clubeLutaId).subscribeBy(
+            onError = {
+                Toast.makeText(
+                    requireContext(),
+                    "Houve um erro ao requisitar o filme " + it.localizedMessage,
+                    Toast.LENGTH_LONG
+                ).show()
+            },
+            onSuccess = { movie ->
+                Toast.makeText(requireContext(), "Sucesso filme:" + movie.title, Toast.LENGTH_LONG).show()
+                currentRootView?.findViewById<ImageView>(R.id.imageTest).load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE+movie.backdropPath) {
+                    crossfade(true)
+                    placeholder(R.drawable.selection_band_overlay)
+                }
+
+            }
+        )
+
+
     }
 
 }

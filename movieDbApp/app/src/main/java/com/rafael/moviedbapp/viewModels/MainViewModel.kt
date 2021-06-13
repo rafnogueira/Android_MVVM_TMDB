@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
     fun fetchMovieDetails(movieId: String): Single<Movie> = moviesRepository.getMovieDetails(movieId)
 
     fun insertMovieToFavorites(movie: Movie){
-        val favoriteMovie = FavoriteMovie(0,
+        val favoriteMovie = FavoriteMovie(
             movie.id,
             movie.title!!,
             movie.backdropPath,
@@ -33,6 +33,7 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
             movie.imdbId!!,
             movie.originalLanguage!!,
             movie.originalTitle)
+
 
         moviesRepository.addFavoriteMovie(favoriteMovie)
             .subscribeOn(Schedulers.io())

@@ -1,3 +1,7 @@
 package com.rafael.moviedbapp.data.models
 
-data class Genre(var id: Int, var categoryName: String)
+import com.squareup.moshi.Json
+
+data class Genre(
+    @Json(name = "id")var id: Int,
+    @Json(name = "name") var name: String)

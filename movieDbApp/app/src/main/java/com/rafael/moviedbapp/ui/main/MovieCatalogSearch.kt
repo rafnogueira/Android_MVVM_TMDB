@@ -1,4 +1,4 @@
-package com.rafael.moviedbapp
+package com.rafael.moviedbapp.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,25 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rafael.moviedbapp.R
+import com.rafael.moviedbapp.viewModels.MovieSearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class MovieDetails : Fragment() {
+@AndroidEntryPoint
+class MovieCatalogSearch : Fragment() {
 
     companion object {
-        fun newInstance() = MovieDetails()
+        fun newInstance() = MovieCatalogSearch()
     }
 
-    private lateinit var viewModel: MovieDetailsViewModel
+    private lateinit var viewModel: MovieSearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.movie_details_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_movie_search, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MovieSearchViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

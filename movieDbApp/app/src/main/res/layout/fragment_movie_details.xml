@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainBackground"
-    tools:context=".MovieDetails">
-
+    tools:context=".ui.main.MovieDetails">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,7 +30,8 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/imageCardPoster"
                 android:layout_width="0dp"
-                android:layout_height="320dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHeight_min="326dp"
                 android:layout_marginStart="82dp"
                 android:layout_marginTop="42dp"
                 android:layout_marginEnd="82dp"

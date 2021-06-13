@@ -4,86 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/ic_launcher"
-    >
+    android:background="@mipmap/ic_launcher">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="372dp"
-        android:layout_height="701dp"
-        app:cardCornerRadius="12dp"
-        android:outlineSpotShadowColor="@color/black"
+        android:id="@+id/cardViewCatalogMovieCover"
+        android:layout_width="0dp"
+        android:layout_height="529dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:outlineAmbientShadowColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:outlineSpotShadowColor="@color/black"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <ImageView
+            android:id="@+id/imgViewMovieCatalogCoverImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imgViewMovieCoverCard"
-                android:layout_width="337dp"
-                android:layout_height="513dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtMovieTitleCard"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/presence_offline" />
-
-            <TextView
-                android:id="@+id/txtMovieTitleCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="14dp"
-                android:layout_marginBottom="12dp"
-                android:text="Movie Title"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txtMovieReleaseDate"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/txtMovieReleaseDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="24 de mar de 2021"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/txtMovieRatingCard"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/txtMovieRatingCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="78"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/ratingBarMovieCard"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"></TextView>
-
-            <RatingBar
-                android:id="@+id/ratingBarMovieCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:numStars="5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            android:layout_height="match_parent"
+            android:background="@color/iconOff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/presence_offline" />
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtMovieCatalogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="14dp"
+        android:text="Movie Title"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewCatalogMovieCover">
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtMovieReleaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="4dp"
+        android:text="24 de mar de 2021"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/txtMovieCatalogTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </TextView>
+
+    <RatingBar
+        android:id="@+id/ratingBarMovieCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:numStars="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMovieReleaseDate" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

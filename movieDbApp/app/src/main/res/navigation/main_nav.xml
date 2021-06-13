@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/moviesCatalogHome">
+
+    <fragment
+        android:id="@+id/moviesCatalogHome"
+        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogHome"
+        android:label="MoviesCatalogHome" />
+
+    <fragment
+        android:id="@+id/moviesCatalogFavorites"
+        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogFavorites"
+        android:label="movies_catalog_favorites_fragment"
+        tools:layout="@layout/fragment_movies_catalog_favorites" />
+
+    <fragment
+        android:id="@+id/movieSearch"
+        android:name="com.rafael.moviedbapp.ui.main.MovieCatalogSearch"
+        android:label="movie_search_fragment"
+        tools:layout="@layout/fragment_movie_search" />
+
+    <fragment
+        android:id="@+id/moviesCatalogGenre"
+        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogGenre"
+        android:label="MoviesCatalogGenre" />
+
+    <fragment
+        android:id="@+id/movieDetails"
+        android:name="com.rafael.moviedbapp.ui.main.MovieDetails"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/fragment_movie_details" />
+
+
+</navigation>

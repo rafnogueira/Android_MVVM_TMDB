@@ -3,6 +3,8 @@
     <string name="movie_fake_sinopse">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis euismod sem, id bibendum augue. Pellentesque tincidunt enim orci, quis posuere nisi fermentum sed. Nunc turpis mi, consectetur in diam at, imperdiet accumsan mi. In condimentum tellus sed vestibulum suscipit. Nulla facilisi. Nunc ut feugiat justo, nec rhoncus lorem. Etiam auctor auctor ipsum, nec viverra lacus elementum at. In gravida porttitor imperdiet. Vestibulum a elit non orci lacinia porttitor. Quisque a lacus euismod, ultrices mauris ut, ultrices ipsum. Vestibulum dignissim sagittis mauris id sodales. Cras porta velit blandit neque gravida, ac fringilla purus bibendum. Ut ultricies diam vitae maximus vestibulum. Nulla accumsan ut mi eget tincidunt. Quisque ac purus vitae orci scelerisque vehicula varius nec magna. Cras sit amet gravida dui.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

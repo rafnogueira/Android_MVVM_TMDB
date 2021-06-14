@@ -10,15 +10,11 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface FavoriteMoviesDao {
     @Query("SELECT * FROM favoriteMovies")
-    fun getAll(): Single<List<FavoriteMovie>>
+    fun getAll(): Single<MutableList<FavoriteMovie>>
 
     @Delete
-    fun delete(favoriteMovie: FavoriteMovie): Int
+    fun delete(favoriteMovie: FavoriteMovie): Single<Int>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(favoriteMovie: FavoriteMovie): Long
-
-    @Update
-    fun update(favoriteMovie: FavoriteMovie): Int
-
 }

@@ -12,7 +12,6 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rafael.moviedbapp.R
-import com.rafael.moviedbapp.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.main_activity.*
 

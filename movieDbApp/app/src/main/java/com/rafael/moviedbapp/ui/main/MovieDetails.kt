@@ -12,6 +12,7 @@ import coil.load
 import coil.transform.BlurTransformation
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.datasource.MovieApi
+import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -87,13 +88,12 @@ class MovieDetails : Fragment() {
 
                     currentRootView?.txtViewMovieDetailsTitle.text = movie.title ?: ""
                     currentRootView?.txtMovieDetailsSinopseDesc.text = movie.overview ?: ""
-                    currentRootView?.txtViewMovieDetailsUserRating.text =
-                        "User rating: " + movie.voteAverage ?: ""
+                    currentRootView?.txtViewMovieDetailsUserRating.text = "User rating: " + movie.voteAverage
 
                     val genres = movie.genres?.map { Genre -> Genre.name }
                     currentRootView?.txtViewMovieDetailsGenres.text = genres?.toString() ?: ""
 
-                    currentRootView?.txtViewMovieDetailsPopularity.text = "Popularity" + movie.popularity ?: ""
+                    currentRootView?.txtViewMovieDetailsPopularity.text = "Popularity" + movie.popularity
 
                     btnMoviesDetailsFavorite.setOnClickListener {
                         viewModel.insertMovieToFavorites(movie)
@@ -101,6 +101,26 @@ class MovieDetails : Fragment() {
                 }
             }
         )
+    }
+
+    private fun insertDbTest() {
+        val movieTest = Movie(
+            1,
+            "Movie Test",
+            "",
+            "",
+            "asd",
+            "",
+            "",
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+
+        viewModel.insertMovieToFavorites(movieTest)
+        val test = 0;
     }
 
 }

@@ -7,6 +7,7 @@ import com.rafael.moviedbapp.data.models.FavoriteMovie
 import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.data.repositories.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fastshop.com.moviedatabase.Models.MovieResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -14,21 +15,99 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
-
+class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepository) :
+    ViewModel() {
     //Livedata listeners
     val favoriteMovieAdded: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    val fetchCategoriesErrorMessage: MutableLiveData<String> = MutableLiveData<String>()
 
-//    val homeCatalog: MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    val catalogByGenre: MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    val searchCatalog: MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    val favoritesCatalog: MutableLiveData<Fragment> = MutableLiveData<Fragment>()
+    val popularMovies: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
+    val popularTvShows: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
+    val upcomingMovies: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
+    val nowPlayingMovies: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
+    val trendingToday: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
+    val trendingWeek: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
 
-    fun fetchMoviesCategories() = moviesRepository.getAllCategories()
+    init {
+        fetchCatalog()
+    }
+
+    fun fetchCatalog() {
+        fetchPopularMovies()
+        fetchPopularTvShows()
+        fetchUpcoming()
+        fetchNowPlaying()
+        fetchTrendingToday()
+        fetchTrendingWeek()
+    }
+
+    //Pega uma lista de 1 página para popular a página inicial
+    fun fetchPopularMovies() {
+        moviesRepository.getPopularMovies(1).doOnError{
+            fetchCategoriesErrorMessage.postValue(it.message)
+        }.subscribeBy { movieResponse ->
+            movieResponse.results?.let {
+                popularMovies.postValue(it.toMutableList())
+            }
+        }
+    }
+
+    fun fetchPopularTvShows() {
+        moviesRepository.getPopularTv(1).doOnError{
+            fetchCategoriesErrorMessage.postValue(it.message)
+        }.subscribeBy { movieResponse ->
+            movieResponse.results?.let {
+                popularTvShows.postValue(it.toMutableList())
+            }
+        }
+    }
+
+    fun fetchUpcoming() {
+        moviesRepository.getUpcoming(1).doOnError{
+            fetchCategoriesErrorMessage.postValue(it.message)
+        }.subscribeBy { movieResponse ->
+            movieResponse.results?.let {
+                upcomingMovies.postValue(it.toMutableList())
+            }
+        }
+    }
+
+    fun fetchNowPlaying() {
+        moviesRepository.getNowPlaying(1).doOnError{
+            fetchCategoriesErrorMessage.postValue(it.message)
+        }.subscribeBy { movieResponse ->
+            movieResponse.results?.let {
+                nowPlayingMovies.postValue(it.toMutableList())
+            }
+        }
+    }
+
+    fun fetchTrendingToday() {
+        moviesRepository.getTrending("all", "day", 1)
+            .doOnError{
+                fetchCategoriesErrorMessage.postValue(it.message)
+            }.subscribeBy { movieResponse ->
+                movieResponse.results?.let {
+                    trendingToday.postValue(it.toMutableList())
+                }
+            }
+    }
+
+    fun fetchTrendingWeek() {
+        moviesRepository.getTrending("all", "week", 1).doOnError{
+            fetchCategoriesErrorMessage.postValue(it.message)
+        }.subscribeBy { movieResponse ->
+            movieResponse.results?.let {
+                trendingWeek.postValue(it.toMutableList())
+            }
+        }
+    }
 
     fun fetchMovieDetails(movieId: String): Single<Movie> = moviesRepository.getMovieDetails(movieId)
 
-    fun insertMovieToFavorites(movie: Movie){
+    fun fetchTvSbowDetails(movieId: String): Single<Movie> = moviesRepository.getTvShowDetails(movieId)
+
+    fun insertMovieToFavorites(movie: Movie) {
         val favoriteMovie = FavoriteMovie(
             movie.id,
             movie.title!!,
@@ -36,14 +115,15 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
             movie.posterPath,
             movie.imdbId!!,
             movie.originalLanguage!!,
-            movie.originalTitle)
+            movie.originalTitle
+        )
 
         moviesRepository.addFavoriteMovie(favoriteMovie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onError = {
-                          favoriteMovieAdded.postValue(false)
+                    favoriteMovieAdded.postValue(false)
                 },
                 onSuccess = {
                     favoriteMovieAdded.postValue(true)
@@ -51,11 +131,5 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
     }
 
     fun getFavoritedMovies() = moviesRepository.getFavoriteMovies()
-
-//    fun homeCatalog(): MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    fun catalogByGenre(): MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    fun searchCatalog(): MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-//    fun favoritesCatalog(): MutableLiveData<Fragment> = MutableLiveData<Fragment>()
-
 
 }

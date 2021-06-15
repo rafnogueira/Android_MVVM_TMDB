@@ -46,16 +46,7 @@ class MovieDetails : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        movieId = arguments?.getString(MOVIE_ID)
-        typeFLag = arguments?.getString(TYPE_FLAG)
-
-
-        viewModel.favoriteMovieAdded.observe(this.viewLifecycleOwner, Observer { added -> {
-                Toast.makeText(requireContext(), "Movie Added to local favorites!", Toast.LENGTH_LONG).show()
-        }
-        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,8 +56,19 @@ class MovieDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         movieId = arguments?.getString(MOVIE_ID)
         typeFLag = arguments?.getString(TYPE_FLAG)
+
+        viewModel.favoriteMovieAdded.observe(this.viewLifecycleOwner, Observer {
+            it?.let { isAdded ->
+                if(isAdded)
+                    Toast.makeText(requireContext(), "Movie Added to local favorites!", Toast.LENGTH_LONG).show()
+                else
+                    Toast.makeText(requireContext(), "Movie failed to be added on local favorites!", Toast.LENGTH_LONG).show()
+            }
+        })
 
         getMovieDetails()
     }
@@ -123,6 +125,8 @@ class MovieDetails : Fragment() {
 
         btnMoviesDetailsFavorite.setOnClickListener {
             viewModel.insertMovieToFavorites(movie)
+
+            it.isSelected = true
         }
     }
 

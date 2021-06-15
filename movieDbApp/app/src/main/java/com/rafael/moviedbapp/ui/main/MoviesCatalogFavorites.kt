@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
+import com.rafael.moviedbapp.ui.recyclerView.MovieCatalogVerticalAdapter
 import com.rafael.moviedbapp.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_movies_catalog_favorites.*
 
 @AndroidEntryPoint
 class MoviesCatalogFavorites : Fragment() {
@@ -22,6 +26,20 @@ class MoviesCatalogFavorites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_movies_catalog_favorites, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
+            recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerViewFavorites.adapter = MovieCatalogVerticalAdapter(requireContext(), it,viewModel, true)
+        })
+
+
+        viewModel.getFavoritedMovies()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

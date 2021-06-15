@@ -57,8 +57,8 @@ class MoviesRepository @Inject constructor(
         api.getMoviesByGenre(genre_id, page).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getMoviesSearchName(query: String): Single<MovieResponse?> =
-        api.getMoviesSearchName(query).subscribeOn(Schedulers.io())
+    fun getMoviesByQuery(query: String): Single<MovieResponse> =
+        api.getMoviesByQuery(query).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     //db local

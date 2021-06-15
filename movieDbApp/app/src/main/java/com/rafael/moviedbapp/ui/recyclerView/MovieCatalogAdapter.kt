@@ -28,9 +28,7 @@ class MovieCatalogAdapter constructor(private val context: Context,
 
         filmeHolder.itemView.setOnClickListener {
             val type: String  = if (moviesList[index].name == null) "movie" else "tv"
-            val id: String  = moviesList[index].id.toString()
-
-            viewModelPtr.openDetails(type, id)
+            viewModelPtr.openDetails(type, moviesList[index].id.toString())
         }
         filmeHolder.txtViewMovieTitle?.setText(title)
         filmeHolder.txtViewMovieRelease?.setText("Create Date conversor")

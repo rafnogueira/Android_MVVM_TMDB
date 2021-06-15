@@ -19,6 +19,7 @@ import com.rafael.moviedbapp.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import kotlinx.android.synthetic.main.fragment_movies_catalog_home.*
+import kotlinx.android.synthetic.main.fragment_movies_catalog_home.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -77,6 +78,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewPopularMovies.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewPopularMovies.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
         viewModel.popularTvShows.observe(this.viewLifecycleOwner, Observer { moviesList ->
@@ -84,6 +87,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewPopularTv.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewPopularTv.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
         viewModel.upcomingMovies.observe(this.viewLifecycleOwner, Observer { moviesList ->
@@ -91,6 +96,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewPopularUpcoming.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewPopularUpcoming.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
         viewModel.nowPlayingMovies.observe(this.viewLifecycleOwner, Observer { moviesList ->
@@ -98,6 +105,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewNowPlayingCinema.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewNowPlayingCinema.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
         viewModel.trendingToday.observe(this.viewLifecycleOwner, Observer { moviesList ->
@@ -105,6 +114,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewTrendingToday.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewTrendingToday.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
         viewModel.trendingWeek.observe(this.viewLifecycleOwner, Observer { moviesList ->
@@ -112,6 +123,8 @@ class MoviesCatalogHome : Fragment() {
                 recyclerViewTrendingWeek.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 recyclerViewTrendingWeek.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+
+                showCatalog()
             }
         })
 
@@ -149,25 +162,12 @@ class MoviesCatalogHome : Fragment() {
         })
     }
 
-    private fun insertDbTest() {
-        val movieTest = Movie(
-            1,
-            "Movie Test",
-            "",
-            "",
-            "asd",
-            "",
-            "",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-        );
+    fun showCatalog()
+    {
+        currentRootView.moviesCatalogHomeLayout?.visibility = View.VISIBLE
+        currentRootView.moviesCatalogLoadingProgressBar?.visibility = View.GONE
 
-        viewModel.insertMovieToFavorites(movieTest)
-        val test = 0;
     }
+
 
 }

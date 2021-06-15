@@ -19,6 +19,6 @@ data class FavoriteMovie(
     @ColumnInfo(name = "overview") val overview:String? = null,
     @ColumnInfo(name = "popularity") val popularity:String? = null,
     @ColumnInfo(name = "vote_average") val voteAverage:String? = null,
-    @ColumnInfo(name = "vote_average") val name:String? = null,
+    @ColumnInfo(name = "name") val name:String? = null,
 //    @ColumnInfo(name = "release_date") val releaseDate: Date = null?
     )

@@ -61,7 +61,7 @@ interface MovieApi
                          @Query("api_key") API_KEY: String? = MovieApi.API_KEY): Single<MovieResponse>
 
     @GET("search/movie")
-    fun getMoviesSearchName(@Query("query") query: String?,
+    fun getMoviesByQuery(@Query("query") query: String?,
                             @Query("api_key") API_KEY: String? = MovieApi.API_KEY): Single<MovieResponse>
 
 }

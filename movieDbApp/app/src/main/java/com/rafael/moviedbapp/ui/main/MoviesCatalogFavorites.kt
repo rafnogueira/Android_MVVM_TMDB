@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.ui.recyclerView.MovieCatalogVerticalAdapter
@@ -20,13 +22,17 @@ class MoviesCatalogFavorites : Fragment() {
     companion object {
         fun newInstance() = MoviesCatalogFavorites()
     }
+
     private lateinit var viewModel: MainViewModel
+    private lateinit var currentRootView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movies_catalog_favorites, container, false)
+        currentRootView = inflater.inflate(R.layout.fragment_movies_catalog_favorites, container, false)
+
+        return currentRootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,14 +41,30 @@ class MoviesCatalogFavorites : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
-            recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            recyclerViewFavorites.adapter = MovieCatalogVerticalAdapter(requireContext(), it,viewModel, true)
+            recyclerViewFavorites.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerViewFavorites.adapter =
+                MovieCatalogVerticalAdapter(requireContext(), it, viewModel, true)
         })
 
         viewModel.favoriteMovieDeleted.observe(viewLifecycleOwner, Observer {
             viewModel.getFavoritedMovies()
             Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show()
         })
+
+        viewModel.openDetailsView.observe(
+            this.viewLifecycleOwner,
+            Observer { pairIdType -> //Pair de um  id do filme  e  type TV or Movie
+                pairIdType?.let {
+                    val bundle = bundleOf(
+                        MovieDetails.TYPE_FLAG to pairIdType.first,
+                        MovieDetails.MOVIE_ID to pairIdType.second
+                    )
+
+                    currentRootView.findNavController().navigate(R.id.action_moviesCatalogFavorites_to_movieDetails, bundle)
+                }
+            })
+
 
         viewModel.getFavoritedMovies()
     }

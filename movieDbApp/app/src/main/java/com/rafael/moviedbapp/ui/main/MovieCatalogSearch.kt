@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.ui.recyclerView.MovieCatalogVerticalAdapter
@@ -45,29 +47,50 @@ class MovieCatalogSearch : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.searchedMovies.observe(this.viewLifecycleOwner, Observer { movies ->
-            recyclerViewMovieSearch.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            recyclerViewMovieSearch.adapter = MovieCatalogVerticalAdapter(requireContext(), movies, viewModel, false)
+            recyclerViewMovieSearch.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerViewMovieSearch.adapter =
+                MovieCatalogVerticalAdapter(requireContext(), movies, viewModel, false)
         })
 
         viewModel.searchedMoviesError.observe(this.viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "Erro ao pesquisar filmes" + it, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Erro ao pesquisar filmes" + it, Toast.LENGTH_LONG)
+                .show()
         })
 
-            searchViewMovieSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        viewModel.openDetailsView.observe(
+            this.viewLifecycleOwner,
+            Observer { pairIdType -> //Pair de um  id do filme  e  type TV or Movie
+                pairIdType?.let {
+                    val bundle = bundleOf(
+                        MovieDetails.TYPE_FLAG to pairIdType.first,
+                        MovieDetails.MOVIE_ID to pairIdType.second
+                    )
 
-                override fun onQueryTextChange(newText: String): Boolean {
-                    runnable = Runnable { viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "") }
-                    handler.postDelayed(runnable, 2000)
-
-                    return true
+                    currentRootView.findNavController()
+                        .navigate(R.id.action_movieSearch_to_movieDetails, bundle)
                 }
-
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "")
-                    return true
-                }
-
             })
+
+        searchViewMovieSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                runnable = Runnable {
+                    viewModel.getMoviesByQuery(
+                        searchViewMovieSearch?.query.toString() ?: ""
+                    )
+                }
+                handler.postDelayed(runnable, 2000)
+
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "")
+                return true
+            }
+
+        })
 
     }
 

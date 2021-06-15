@@ -2,10 +2,12 @@ package com.rafael.moviedbapp.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,10 @@ class MovieCatalogSearch : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var currentRootView: View
+
+    // Job delayed para pesquisar
+    private val handler: Handler = Handler()
+    private lateinit var runnable: Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +52,23 @@ class MovieCatalogSearch : Fragment() {
         viewModel.searchedMoviesError.observe(this.viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), "Erro ao pesquisar filmes" + it, Toast.LENGTH_LONG).show()
         })
+
+            searchViewMovieSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    runnable = Runnable { viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "") }
+                    handler.postDelayed(runnable, 2000)
+
+                    return true
+                }
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "")
+                    return true
+                }
+
+            })
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -9,7 +9,7 @@
     tools:context=".ui.MainActivity">
 
     <SearchView
-        android:id="@+id/searchViewmMovieSearch"
+        android:id="@+id/searchViewMovieSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/searchViewmMovieSearch"
+        app:layout_constraintTop_toBottomOf="@id/searchViewMovieSearch"
         android:layout_marginHorizontal="8dp"
         >
     </androidx.recyclerview.widget.RecyclerView>

@@ -2,6 +2,8 @@ package com.rafael.moviedbapp.ui.recyclerView
 
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
+import android.content.res.Resources
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +46,7 @@ class MovieCatalogVerticalAdapter constructor(private val context: Context,
 
         filmeHolder.btnAddFavorite?.visibility = if(isLocal) View.GONE else View.VISIBLE
         filmeHolder.btnAddFavorite?.setOnClickListener{
+            filmeHolder.btnAddFavorite?.load(R.drawable.ic_baseline_favorite_24_on)
             viewModelPtr.insertMovieToFavorites(moviesList[index])
         }
 

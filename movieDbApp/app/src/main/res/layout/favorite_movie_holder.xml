@@ -113,13 +113,13 @@
         android:backgroundTint="#C31F1F"
         android:drawableTint="@color/iconOn"
         android:gravity="center"
-        android:src="@drawable/ic_baseline_favorite_24_off"
+        android:src="@drawable/ic_baseline_add_24"
         app:icon="@drawable/ic_baseline_delete_24"
         app:iconTint="@color/iconOn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFavoriteMovieDelete"
         app:layout_constraintRight_toLeftOf="@id/btnFavoriteMovieDelete"
-        app:tint="@color/FavoritosCor">
+        >
 
     </ImageButton>
 

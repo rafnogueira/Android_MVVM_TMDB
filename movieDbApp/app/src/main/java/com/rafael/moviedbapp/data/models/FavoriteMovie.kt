@@ -10,7 +10,7 @@ data class FavoriteMovie(
 //    @PrimaryKey(autoGenerate = true) val Id: Int,
     @PrimaryKey
     @ColumnInfo(name = "movie_id") val movieId: Int,
-    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "backdrop_path") val backdropPath: String? = null,
     @ColumnInfo(name = "poster_path") val posterPath: String? = null,
     @ColumnInfo(name = "imdb_id") val imdbId: String? = null,
@@ -19,5 +19,6 @@ data class FavoriteMovie(
     @ColumnInfo(name = "overview") val overview:String? = null,
     @ColumnInfo(name = "popularity") val popularity:String? = null,
     @ColumnInfo(name = "vote_average") val voteAverage:String? = null,
+    @ColumnInfo(name = "vote_average") val name:String? = null,
 //    @ColumnInfo(name = "release_date") val releaseDate: Date = null?
     )

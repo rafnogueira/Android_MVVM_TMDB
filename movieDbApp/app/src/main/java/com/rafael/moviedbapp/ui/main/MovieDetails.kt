@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import coil.load
 import coil.transform.BlurTransformation
 import com.rafael.moviedbapp.R
@@ -19,25 +20,20 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import kotlinx.android.synthetic.main.fragment_movie_details.view.*
 
-private const val MOVIE_ID = "MOVIE_ID"
-
 @AndroidEntryPoint
 class MovieDetails : Fragment() {
 
     companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(movieId: String) =
-            MoviesCatalogHome().apply {
-                arguments = Bundle().apply {
-                    putString(MOVIE_ID, movieId)
-                }
-            }
+        fun newInstance() = MoviesCatalogHome()
+
+        const val MOVIE_ID = "MOVIE_ID"
+        const val TYPE_FLAG = "TYPE_FLAG"
     }
 
     private lateinit var viewModel: MainViewModel
     private lateinit var currentRootView: View
     private var movieId: String? = null
+    private var typeFLag: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,78 +45,85 @@ class MovieDetails : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            movieId = it.getString(MOVIE_ID)
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        movieId = arguments?.getString(MOVIE_ID)
+        typeFLag = arguments?.getString(TYPE_FLAG)
+
+
+        viewModel.favoriteMovieAdded.observe(this.viewLifecycleOwner, Observer { added -> {
+                Toast.makeText(requireContext(), "Movie Added to local favorites!", Toast.LENGTH_LONG).show()
         }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
-        movieId?.let {
-            getMovieDetails()
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        movieId = arguments?.getString(MOVIE_ID)
+        typeFLag = arguments?.getString(TYPE_FLAG)
+
+        getMovieDetails()
     }
 
     private fun getMovieDetails() {
-        viewModel.fetchMovieDetails(movieId!!).subscribeBy(
-            onError = {
-                Toast.makeText(
-                    requireContext(),
-                    "Houve um erro ao requisitar o filme " + it.localizedMessage,
-                    Toast.LENGTH_LONG
-                ).show()
-            },
-            onSuccess = {
-                it?.let { movie ->
-                    currentRootView?.findViewById<ImageView>(R.id.imgViewMovieDetailsCover)
-                        .load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE + movie.posterPath) {
-                            placeholder(R.drawable.selection_band_overlay)
-                        }
+        movieId?.let { movieId ->
+            if (typeFLag == "movie")
+                viewModel.fetchMovieDetails(movieId).subscribeBy( onError = {
+                        Toast.makeText(
+                            requireContext(),
+                            "Houve um erro ao conseguir dados do filme " + it.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                    currentRootView?.findViewById<ImageView>(R.id.imgViewMovieDetailsBackdrop)
-                        .load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE + movie.backdropPath) {
-                            crossfade(true)
-                            BlurTransformation(requireContext(), 10f, 1f)
-                            placeholder(R.drawable.selection_band_overlay)
-                        }
+                    }, onSuccess = {
+                        bindMovieData(it)
+                    })
+            else
+                viewModel.fetchTvSbowDetails(movieId).subscribeBy(onError = {
+                        Toast.makeText(
+                            requireContext(),
+                            "Houve um erro ao conseguir dados do filme " + it.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                    currentRootView?.txtViewMovieDetailsTitle.text = movie.title ?: ""
-                    currentRootView?.txtMovieDetailsSinopseDesc.text = movie.overview ?: ""
-                    currentRootView?.txtViewMovieDetailsUserRating.text = "User rating: " + movie.voteAverage
-
-                    val genres = movie.genres?.map { Genre -> Genre.name }
-                    currentRootView?.txtViewMovieDetailsGenres.text = genres?.toString() ?: ""
-
-                    currentRootView?.txtViewMovieDetailsPopularity.text = "Popularity" + movie.popularity
-
-                    btnMoviesDetailsFavorite.setOnClickListener {
-                        viewModel.insertMovieToFavorites(movie)
-                    }
-                }
-            }
-        )
+                    }, onSuccess = {
+                        bindMovieData(it)
+                    })
+        }
     }
 
-    private fun insertDbTest() {
-        val movieTest = Movie(
-            1,
-            "Movie Test",
-            "",
-            "",
-            "asd",
-            "",
-            "",
-            null,
-            null,
-            null,
-            null,
-            null
-        );
+    private fun bindMovieData(movie: Movie) {
+        currentRootView.imgViewMovieDetailsCover.load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE + movie.posterPath)
+        {
+            placeholder(R.drawable.selection_band_overlay)
+        }
 
-        viewModel.insertMovieToFavorites(movieTest)
-        val test = 0;
+        currentRootView.imgViewMovieDetailsBackdrop.load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE + movie.backdropPath)
+        {
+            crossfade(true)
+            placeholder(R.drawable.selection_band_overlay)
+        }
+
+        currentRootView.txtViewMovieDetailsTitle.text = movie.title ?: movie.name
+        currentRootView.txtMovieDetailsSinopseDesc.text = movie.overview ?: ""
+        currentRootView.txtViewMovieDetailsUserRating.text = "User rating: " + movie.voteAverage
+
+        val genres = movie.genres?.map { Genre -> Genre.name }
+        currentRootView.txtViewMovieDetailsGenres.text = genres?.toString() ?: ""
+        currentRootView.txtViewMovieDetailsPopularity.text = "Popularity" + movie.popularity
+
+        currentRootView.movieDetailsProgressWidget.visibility = View.GONE
+        currentRootView.movieDetailsScrollView.visibility = View.VISIBLE
+
+        btnMoviesDetailsFavorite.setOnClickListener {
+            viewModel.insertMovieToFavorites(movie)
+        }
     }
 
 }

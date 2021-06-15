@@ -33,15 +33,11 @@ class MainActivity : AppCompatActivity(){
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController() as NavController) ;
 
         navController = navHostFragment.navController
+    }
 
-        //val appBarConfiguration = AppBarConfiguration(setOf(R.id.fragment_movies_catalog_home, R.id.fragment_movies_catalog_search, R.id.fragment_movies_catalog_favorites))
-
-    //        bottomNavigationView.setupWithNavController(navController)
-
-
-//        navController.navigate(R.id.action_moviesCatalogHome_to_movieDetails)
-
-        //this.findNavController().navigate(R.layout.fragment_movie_details)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        //Tratar gestos de voltar
     }
 
 }

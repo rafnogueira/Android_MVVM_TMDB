@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/mainBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
@@ -47,8 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularMovies">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularMovies"/>
 
             <TextView
                 android:id="@+id/txtViewMovieCatalogPopularTv"
@@ -71,8 +72,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularTv">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularTv"/>
 
             <TextView
                 android:id="@+id/txtViewMovieCatalogPopularUpcoming"
@@ -95,8 +95,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularUpcoming">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogPopularUpcoming"/>
 
             <TextView
                 android:id="@+id/txtViewMovieCatalogCinemas"
@@ -108,8 +107,7 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewPopularUpcoming"
-                 />
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewPopularUpcoming" />
 
             <TextView
                 android:id="@+id/txtViewMoviesCinema"
@@ -120,8 +118,7 @@
                 android:textColor="@color/secondaryText"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogCinemas"
-            />
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogCinemas" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewNowPlayingCinema"
@@ -133,8 +130,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesCinema">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesCinema"/>
 
             <TextView
                 android:id="@+id/txtViewMovieCatalogTrending"
@@ -146,8 +142,7 @@
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewNowPlayingCinema"
-                />
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewNowPlayingCinema" />
 
             <TextView
                 android:id="@+id/txtViewMoviesTrendingToday"
@@ -158,8 +153,7 @@
                 android:textColor="@color/secondaryText"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogTrending"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/txtViewMovieCatalogTrending" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTrendingToday"
@@ -171,8 +165,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesTrendingToday">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesTrendingToday"/>
 
             <TextView
                 android:id="@+id/txtViewMoviesTrendingWeek"
@@ -183,8 +176,7 @@
                 android:textColor="@color/secondaryText"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewTrendingToday"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewTrendingToday" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTrendingWeek"
@@ -196,8 +188,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesTrendingWeek">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@id/txtViewMoviesTrendingWeek"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

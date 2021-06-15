@@ -20,6 +20,7 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
     //Livedata listeners
     val favoriteMovieAdded: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val fetchCategoriesErrorMessage: MutableLiveData<String> = MutableLiveData<String>()
+    val openDetailsView: MutableLiveData<Pair<String, String>> = MutableLiveData<Pair<String, String>>()
 
     val popularMovies: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
     val popularTvShows: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
@@ -41,7 +42,11 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
         fetchTrendingWeek()
     }
 
-    //Pega uma lista de 1 página para popular a página inicial
+    fun openDetails(typeFlag: String, id: String)
+    {
+        openDetailsView.postValue(Pair(typeFlag, id))
+    }
+
     fun fetchPopularMovies() {
         moviesRepository.getPopularMovies(1).doOnError{
             fetchCategoriesErrorMessage.postValue(it.message)
@@ -105,17 +110,18 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
 
     fun fetchMovieDetails(movieId: String): Single<Movie> = moviesRepository.getMovieDetails(movieId)
 
-    fun fetchTvSbowDetails(movieId: String): Single<Movie> = moviesRepository.getTvShowDetails(movieId)
+    fun fetchTvSbowDetails(tvShowId: String): Single<Movie> = moviesRepository.getTvShowDetails(tvShowId)
 
     fun insertMovieToFavorites(movie: Movie) {
         val favoriteMovie = FavoriteMovie(
             movie.id,
-            movie.title!!,
+            movie.title,
             movie.backdropPath,
             movie.posterPath,
             movie.imdbId!!,
             movie.originalLanguage!!,
-            movie.originalTitle
+            movie.originalTitle,
+            movie.name
         )
 
         moviesRepository.addFavoriteMovie(favoriteMovie)

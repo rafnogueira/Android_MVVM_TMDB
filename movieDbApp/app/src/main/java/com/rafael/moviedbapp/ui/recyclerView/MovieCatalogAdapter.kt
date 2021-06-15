@@ -10,8 +10,11 @@ import coil.load
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.datasource.MovieApi
 import com.rafael.moviedbapp.data.models.Movie
+import com.rafael.moviedbapp.viewModels.MainViewModel
 
-class MovieCatalogAdapter constructor(private val context: Context, private val moviesList: MutableList<Movie>):
+class MovieCatalogAdapter constructor(private val context: Context,
+                                      private val moviesList: MutableList<Movie>,
+                                      private val viewModelPtr: MainViewModel):
     RecyclerView.Adapter<MovieCatalogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCatalogViewHolder {
@@ -21,7 +24,15 @@ class MovieCatalogAdapter constructor(private val context: Context, private val 
 
     override fun onBindViewHolder(filmeHolder: MovieCatalogViewHolder, index: Int) {
 
-        filmeHolder.txtViewMovieTitle?.setText(moviesList[index].title)
+        val title: String =  moviesList[index].title ?: moviesList[index].name ?: ""
+
+        filmeHolder.itemView.setOnClickListener {
+            val type: String  = if (moviesList[index].name == null) "movie" else "tv"
+            val id: String  = moviesList[index].id.toString()
+
+            viewModelPtr.openDetails(type, id)
+        }
+        filmeHolder.txtViewMovieTitle?.setText(title)
         filmeHolder.txtViewMovieRelease?.setText("Create Date conversor")
         filmeHolder.movieId = moviesList[index].id
         filmeHolder.ratingBar?.max = 5

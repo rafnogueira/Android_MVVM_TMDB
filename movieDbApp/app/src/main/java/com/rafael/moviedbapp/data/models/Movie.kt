@@ -17,6 +17,9 @@ data class Movie(
     @Json(name = "vote_average") val voteAverage:String?,
     @Json(name = "production_companies") val productionCompanies :List<ProductionCompanies>?,
     @Json(name = "genres") val genres: List<Genre>?,
+
+    //TV shows vem em um formato diferente, mas vamos usar só o nome para mostrar os detalhes de forma simples por enquanto
+    @Json(name = "name") val name: String?,
     //@Json(name = "release_date") val releaseDate: Date?  //TODO: create a custom converter
 
     )

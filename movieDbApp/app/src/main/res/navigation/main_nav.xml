@@ -8,19 +8,37 @@
     <fragment
         android:id="@+id/moviesCatalogHome"
         android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogHome"
-        android:label="MoviesCatalogHome" />
+        android:label="MoviesCatalogHome" >
+        <action
+            android:id="@+id/action_moviesCatalogHome_to_movieDetails"
+            app:destination="@id/movieDetails" />
+        <argument
+            android:name="TYPE_FLAG"
+            app:argType="string" />
+        <argument
+            android:name="MOVIE_ID"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/moviesCatalogFavorites"
         android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogFavorites"
         android:label="movies_catalog_favorites_fragment"
-        tools:layout="@layout/fragment_movies_catalog_favorites" />
+        tools:layout="@layout/fragment_movies_catalog_favorites" >
+        <action
+            android:id="@+id/action_moviesCatalogFavorites_to_movieDetails"
+            app:destination="@id/movieDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/movieSearch"
         android:name="com.rafael.moviedbapp.ui.main.MovieCatalogSearch"
         android:label="movie_search_fragment"
-        tools:layout="@layout/fragment_movie_search" />
+        tools:layout="@layout/fragment_movie_search" >
+        <action
+            android:id="@+id/action_movieSearch_to_movieDetails"
+            app:destination="@id/movieDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/moviesCatalogGenre"

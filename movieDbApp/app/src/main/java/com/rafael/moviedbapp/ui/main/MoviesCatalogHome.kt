@@ -2,13 +2,15 @@ package com.rafael.moviedbapp.ui.main
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.models.Movie
@@ -27,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_movies_catalog_home.*
 class MoviesCatalogHome : Fragment() {
 
     companion object {
-        fun newInstance() =  MoviesCatalogHome()
+        fun newInstance() = MoviesCatalogHome()
     }
 
     private lateinit var viewModel: MainViewModel
@@ -35,6 +37,10 @@ class MoviesCatalogHome : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onCreateView(
@@ -54,46 +60,60 @@ class MoviesCatalogHome : Fragment() {
         //Observers para nos comunicarmos com a interface (View) de forma assíncrona sem travar a mainThread
         viewModel.fetchCatalog()
 
-        viewModel.fetchCategoriesErrorMessage.observe(this.viewLifecycleOwner, Observer { message->
+        viewModel.fetchCategoriesErrorMessage.observe(this.viewLifecycleOwner, Observer { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         })
 
-    viewModel.popularMovies.observe(this.viewLifecycleOwner, Observer{ moviesList-> 
-        moviesList?.let{
-            recyclerViewPopularMovies.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewPopularMovies.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
-    viewModel.popularTvShows.observe(this.viewLifecycleOwner, Observer { moviesList->
-        moviesList?.let{
-            recyclerViewPopularTv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewPopularTv.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
-    viewModel.upcomingMovies.observe(this.viewLifecycleOwner, Observer { moviesList->
-        moviesList?.let{
-            recyclerViewPopularUpcoming.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewPopularUpcoming.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
-    viewModel.nowPlayingMovies.observe(this.viewLifecycleOwner, Observer { moviesList->
-        moviesList?.let{
-            recyclerViewNowPlayingCinema.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewNowPlayingCinema.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
-    viewModel.trendingToday.observe(this.viewLifecycleOwner, Observer { moviesList->
-        moviesList?.let{
-            recyclerViewTrendingToday.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewTrendingToday.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
-    viewModel.trendingWeek.observe(this.viewLifecycleOwner, Observer { moviesList->
-        moviesList?.let{
-            recyclerViewTrendingWeek.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            recyclerViewTrendingWeek.adapter  = MovieCatalogAdapter(requireContext(), it)
-        }
-    })
+        viewModel.openDetailsView.observe(this.viewLifecycleOwner, Observer { pairIdType -> //Pair de um  id do filme  e  type TV or Movie
+            pairIdType?.let {
+                val bundle = bundleOf(MovieDetails.TYPE_FLAG to pairIdType.first,  MovieDetails.MOVIE_ID to pairIdType.second)
+
+                currentRootView.findNavController().navigate(R.id.action_moviesCatalogHome_to_movieDetails, bundle)
+            }
+        })
+
+        viewModel.popularMovies.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewPopularMovies.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewPopularMovies.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
+        viewModel.popularTvShows.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewPopularTv.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewPopularTv.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
+        viewModel.upcomingMovies.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewPopularUpcoming.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewPopularUpcoming.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
+        viewModel.nowPlayingMovies.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewNowPlayingCinema.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewNowPlayingCinema.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
+        viewModel.trendingToday.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewTrendingToday.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewTrendingToday.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
+        viewModel.trendingWeek.observe(this.viewLifecycleOwner, Observer { moviesList ->
+            moviesList?.let {
+                recyclerViewTrendingWeek.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                recyclerViewTrendingWeek.adapter = MovieCatalogAdapter(requireContext(), it, viewModel)
+            }
+        })
 
         viewModel.favoriteMovieAdded.observe(this.viewLifecycleOwner, Observer { isAddedFlag ->
             isAddedFlag?.let { added ->
@@ -111,7 +131,7 @@ class MoviesCatalogHome : Fragment() {
                         "Filme adicionado aos favoritos sucesso!",
                         Toast.LENGTH_LONG
                     ).show()
-                } else{
+                } else {
                     btnMoviesDetailsFavorite.setBackgroundTintList(
                         ColorStateList.valueOf(
                             resources.getColor(
@@ -129,7 +149,6 @@ class MoviesCatalogHome : Fragment() {
         })
     }
 
-
     private fun insertDbTest() {
         val movieTest = Movie(
             1,
@@ -143,7 +162,8 @@ class MoviesCatalogHome : Fragment() {
             null,
             null,
             null,
-            null
+            null,
+            null,
         );
 
         viewModel.insertMovieToFavorites(movieTest)

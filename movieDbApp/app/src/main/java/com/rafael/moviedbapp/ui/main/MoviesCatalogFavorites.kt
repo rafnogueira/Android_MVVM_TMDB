@@ -41,10 +41,8 @@ class MoviesCatalogFavorites : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
-            recyclerViewFavorites.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            recyclerViewFavorites.adapter =
-                MovieCatalogVerticalAdapter(requireContext(), it, viewModel, true)
+            recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerViewFavorites.adapter = MovieCatalogVerticalAdapter(requireContext(), it, viewModel, true)
         })
 
         viewModel.favoriteMovieDeleted.observe(viewLifecycleOwner, Observer {

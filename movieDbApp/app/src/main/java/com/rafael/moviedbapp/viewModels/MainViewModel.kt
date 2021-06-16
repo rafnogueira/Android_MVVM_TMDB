@@ -139,7 +139,10 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
             movie.imdbId,
             movie.originalLanguage,
             movie.originalTitle,
-            movie.name
+            movie.overview,
+            movie.popularity,
+            movie.voteAverage,
+            movie.name,
         )
 
         moviesRepository.addFavoriteMovie(favoriteMovie)

@@ -1,11 +1,10 @@
 package com.rafael.moviedbapp.ui.recyclerView
 
-import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.datasource.MovieApi

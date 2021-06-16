@@ -1,16 +1,13 @@
 package com.rafael.moviedbapp.viewModels
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rafael.moviedbapp.data.models.FavoriteMovie
 import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.data.repositories.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fastshop.com.moviedatabase.Models.MovieResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.functions.Predicate
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

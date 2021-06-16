@@ -1,10 +1,7 @@
 package com.rafael.moviedbapp.ui.main
 
-import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +9,9 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isNotEmpty
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
@@ -66,16 +65,18 @@ class MovieCatalogSearch : Fragment() {
                 pairIdType?.let {
                     val bundle = bundleOf(
                         MovieDetails.TYPE_FLAG to pairIdType.first,
-                        MovieDetails.MOVIE_ID to pairIdType.second)
+                        MovieDetails.MOVIE_ID to pairIdType.second
+                    )
 
-                    currentRootView.findNavController().navigate(R.id.action_movieSearch_to_movieDetails, bundle)
+                    currentRootView.findNavController()
+                        .navigate(R.id.action_movieSearch_to_movieDetails, bundle)
                 }
             })
 
         searchViewMovieSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 runnable = Runnable {
-                    if(searchViewMovieSearch.isNotEmpty())
+                    if (searchViewMovieSearch.isNotEmpty())
                         viewModel.getMoviesByQuery(searchViewMovieSearch?.query.toString() ?: "")
                 }
                 handler.postDelayed(runnable, 500)

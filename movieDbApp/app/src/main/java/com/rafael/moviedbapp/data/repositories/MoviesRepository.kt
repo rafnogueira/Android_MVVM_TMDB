@@ -9,8 +9,6 @@ import fastshop.com.moviedatabase.Models.MovieResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.http.GET
-import retrofit2.http.Query
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(

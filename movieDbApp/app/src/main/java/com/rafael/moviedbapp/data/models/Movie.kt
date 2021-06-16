@@ -1,8 +1,6 @@
 package com.rafael.moviedbapp.data.models
 
-import androidx.room.ColumnInfo
 import com.squareup.moshi.Json
-import java.util.*
 
 data class Movie(
     @Json(name = "id") val id: Int,
@@ -18,8 +16,6 @@ data class Movie(
     @Json(name = "production_companies") val productionCompanies :List<ProductionCompanies>?,
     @Json(name = "genres") val genres: List<Genre>?,
 
-    //TV shows vem em um formato diferente, mas vamos usar só o nome para mostrar os detalhes de forma simples por enquanto
-    @Json(name = "name") val name: String?,
+    @Json(name = "name") val name: String?, //TV shows vem de forma diferente, mas usei apenas esta variável para controle, pois ela vem null quando é filme
     //@Json(name = "release_date") val releaseDate: Date?  //TODO: create a custom converter
-
-    )
+    private val isFavorite: Boolean = false)

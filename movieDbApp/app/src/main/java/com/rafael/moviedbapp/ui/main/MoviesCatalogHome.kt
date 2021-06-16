@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rafael.moviedbapp.R
-import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.ui.recyclerView.MovieCatalogAdapter
 import com.rafael.moviedbapp.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint

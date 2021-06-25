@@ -16,6 +16,7 @@ data class Movie(
     @Json(name = "production_companies") val productionCompanies :List<ProductionCompanies>?,
     @Json(name = "genres") val genres: List<Genre>?,
 
-    @Json(name = "name") val name: String?, //TV shows vem de forma diferente, mas usei apenas esta variável para controle, pois ela vem null quando é filme
+    @Json(name = "name") val name: String?,
+
     //@Json(name = "release_date") val releaseDate: Date?  //TODO: create a custom converter
     private val isFavorite: Boolean = false)

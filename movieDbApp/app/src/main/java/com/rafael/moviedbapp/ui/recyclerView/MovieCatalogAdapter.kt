@@ -31,7 +31,7 @@ class MovieCatalogAdapter constructor(private val context: Context,
         }
         filmeHolder.txtViewMovieTitle?.setText(title)
         filmeHolder.txtViewMovieRelease?.setText("Create Date conversor")
-        filmeHolder.movieId = moviesList[index].id
+
         filmeHolder.ratingBar?.max = 5
 
         val rating: Float = moviesList[index].voteAverage?.toFloat()?.div(2) ?: 0f

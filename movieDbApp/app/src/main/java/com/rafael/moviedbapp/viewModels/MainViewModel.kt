@@ -34,10 +34,6 @@ class MainViewModel @Inject constructor(private val moviesRepository: MoviesRepo
     val trendingToday: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
     val trendingWeek: MutableLiveData<MutableList<Movie>> = MutableLiveData<MutableList<Movie>>()
 
-    init {
-//        fetchCatalog()
-    }
-
     fun fetchCatalog() {
         fetchPopularMovies()
         fetchPopularTvShows()

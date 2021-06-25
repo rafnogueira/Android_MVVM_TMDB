@@ -48,24 +48,15 @@ android {
 }
 
 dependencies {
-
-    //Adicionando Retrofit, Glide e ReactRx/KotlinRx para pegar imagens e consumir a rest api
+//     Retrofit, Glide e ReactRx
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "io.coil-kt:coil:1.2.2"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.13'
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
-
-    //Adapter para o retrofit para poder usar observables do Rxkotlin ao java
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
-
-//Testes
-//    implementation 'com.facebook.fresco:fresco:2.4.0'
-//    implementation 'com.github.bumptech.glide:glide:4.11.0'
-//    implementation "com.google.devtools.ksp:symbol-processing-api:1.5.0-1.0.0-alpha10"
-
-    //Adicionando libs diversas
+//    Navigation
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
@@ -76,18 +67,16 @@ dependencies {
 //    RoomDb
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
-    // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava3:$room_version"
 
-//    Hilt dependências
+//    Hilt
     def hilt_version = '2.37'
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
-    // Problemas com o Apple Silicon M1 e o driver nativo do sqlite na hora de rodar, perdi 2 dias thanks Apple ;)
+    // Apple Silicon M1 e o driver nativo do sqlite are having small probl
     kapt "org.xerial:sqlite-jdbc:3.34.0"
 
 //    Moshi para tratar Jsons
@@ -95,12 +84,11 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
     implementation('com.squareup.retrofit2:converter-moshi:2.9.0')
 
-//    Bibliotecas do Expresso tests
+//    Expresso
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
 
-//    Libs default do template do Android Studio
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.0-M1"
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'

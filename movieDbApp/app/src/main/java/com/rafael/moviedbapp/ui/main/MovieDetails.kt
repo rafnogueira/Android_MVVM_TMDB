@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import coil.transform.BlurTransformation
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.datasource.MovieApi
 import com.rafael.moviedbapp.data.models.Movie
@@ -23,7 +24,6 @@ class MovieDetails : Fragment() {
 
     companion object {
         fun newInstance() = MoviesCatalogHome()
-
         const val MOVIE_ID = "MOVIE_ID"
         const val TYPE_FLAG = "TYPE_FLAG"
     }
@@ -39,16 +39,6 @@ class MovieDetails : Fragment() {
     ): View? {
         currentRootView = inflater.inflate(R.layout.fragment_movie_details, container, false)
         return currentRootView
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,8 +96,8 @@ class MovieDetails : Fragment() {
 
         currentRootView.imgViewMovieDetailsBackdrop.load(MovieApi.IMAGES_ENDPOINT_ORIGINAL_SIZE + movie.backdropPath)
         {
-            crossfade(true)
             placeholder(R.drawable.selection_band_overlay)
+            BlurTransformation(requireContext(), 25f,1f)
         }
 
         currentRootView.txtViewMovieDetailsTitle.text = movie.title ?: movie.name

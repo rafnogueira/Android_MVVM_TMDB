@@ -1,4 +1,4 @@
-package com.rafael.moviedbapp.ui.main
+package com.rafael.moviedbapp.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -9,6 +9,7 @@ import coil.load
 import com.rafael.moviedbapp.R
 import com.rafael.moviedbapp.data.datasource.MovieApi
 import com.rafael.moviedbapp.data.models.Movie
+import com.rafael.moviedbapp.data.utils.DateConverter
 import com.rafael.moviedbapp.viewModels.MainViewModel
 
 class MovieCatalogAdapter constructor(private val context: Context,
@@ -30,8 +31,10 @@ class MovieCatalogAdapter constructor(private val context: Context,
             viewModelPtr.openDetails(type, moviesList[index].id.toString())
         }
         filmeHolder.txtViewMovieTitle?.setText(title)
-        filmeHolder.txtViewMovieRelease?.setText("Create Date conversor")
 
+        var releaseDate = DateConverter.fromDateToView(moviesList[index].releaseDate) ?: "In Streaming"
+
+        filmeHolder.txtViewMovieRelease?.setText(releaseDate)
         filmeHolder.ratingBar?.max = 5
 
         val rating: Float = moviesList[index].voteAverage?.toFloat()?.div(2) ?: 0f

@@ -6,6 +6,7 @@ import com.rafael.moviedbapp.data.dao.FavoriteMoviesDao
 import com.rafael.moviedbapp.data.datasource.AppDatabase
 import com.rafael.moviedbapp.data.datasource.MovieApi
 import com.rafael.moviedbapp.data.repositories.MoviesRepository
+import com.rafael.moviedbapp.data.utils.DateConverterJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -18,8 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-//Objeto estático do kotlin com o Dagger Hilt, para providênciar os módulos necessários do app
-//Todos os provedores estão encapsulados aqui, mas poderia haver uma separação para maior organização em projetos maiores
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule{
@@ -34,31 +33,31 @@ object AppModule{
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
+        .add(DateConverterJson())
         .build()
 
-    //Provide API Endpoints service
+    //API Endpoints
     @Provides
     fun provideMovieApiService(retrofit: Retrofit): MovieApi{
         return retrofit.create(MovieApi::class.java)
     }
 
 
-    //Provide o banco de dados local do app
+    //Room db
     @Provides
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase = Room.databaseBuilder(
         appContext,
         AppDatabase::class.java,
-        "fastshop-movies-db"
+        "movies-db"
     ).build()
 
-    //Provide repositórios para os viewModels
+    //ViewModels
     @Provides
     fun provideMoviesRepository(api: MovieApi,
                                 favoriteMoviesDao: FavoriteMoviesDao
     ): MoviesRepository = MoviesRepository(api, favoriteMoviesDao)
 
-
-    //Provide Dao para o banco de dados local para os repositórios
+    //Dao
     @Provides
     fun provideFavoriteMoviesDao(appDatabase: AppDatabase): FavoriteMoviesDao = appDatabase.favoriteMoviesDao()
 

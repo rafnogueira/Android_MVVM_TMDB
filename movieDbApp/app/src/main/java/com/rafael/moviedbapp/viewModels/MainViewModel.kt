@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.rafael.moviedbapp.data.models.FavoriteMovie
 import com.rafael.moviedbapp.data.models.Movie
 import com.rafael.moviedbapp.data.repositories.MoviesRepository
+import com.rafael.moviedbapp.data.utils.DateConverter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -203,5 +204,8 @@ fun favoriteMovieToMovie(favoriteMovie: FavoriteMovie) : Movie
         favoriteMovie.voteAverage,
         null,
         null,
-        favoriteMovie.name)
+        favoriteMovie.name,
+        DateConverter.toDate(favoriteMovie.releaseDate),
+        true,
+   )
 }

@@ -9,14 +9,16 @@
     <color name="white">#FFFFFFFF</color>
 
     //Meu theme
-    <color name="FavoritosCor">#F050B9</color>
+<!--    <color name="FavoritosCor">#F050B9</color>-->
+    <color name="FavoritosCor">#FF006D</color>
+
     <color name="mainBackground">#0D1D3A</color>
     <color name="mainBackgroundDarker">#060D1B</color>
     <color name="mainBackgroundBackdropAlpha">#22000000</color>
     <color name="backgroundBottomMenu">#0B1D37</color>
     <color name="secondaryText">#6B768B</color>
     <color name="headerTexts">#FFFFFF</color>
-    <color name="linhaDivisoria">#23294C</color>
+    <color name="linhaDivisoria">#484E74</color>
     <color name="iconOff">#4F678B</color>
     <color name="iconOn">#2487FC</color>
 

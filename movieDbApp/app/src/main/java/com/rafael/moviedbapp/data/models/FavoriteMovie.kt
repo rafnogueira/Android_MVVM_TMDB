@@ -3,10 +3,10 @@ package com.rafael.moviedbapp.data.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(tableName = "favoriteMovies")
 data class FavoriteMovie(
-//    @PrimaryKey(autoGenerate = true) val Id: Int,
     @PrimaryKey
     @ColumnInfo(name = "movie_id") val movieId: Int,
     @ColumnInfo(name = "title") val title: String?,
@@ -19,5 +19,4 @@ data class FavoriteMovie(
     @ColumnInfo(name = "popularity") val popularity:String? = null,
     @ColumnInfo(name = "vote_average") val voteAverage:String? = null,
     @ColumnInfo(name = "name") val name:String? = null,
-//    @ColumnInfo(name = "release_date") val releaseDate: Date = null?
-    )
+    @ColumnInfo(name = "release_date") val releaseDate: String? = null)

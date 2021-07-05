@@ -1,6 +1,7 @@
 package com.rafael.moviedbapp.data.models
 
 import com.squareup.moshi.Json
+import java.util.Date
 
 data class Movie(
     @Json(name = "id") val id: Int,
@@ -13,10 +14,8 @@ data class Movie(
     @Json(name = "overview") val overview:String?,
     @Json(name = "popularity") val popularity:String?,
     @Json(name = "vote_average") val voteAverage:String?,
-    @Json(name = "production_companies") val productionCompanies :List<ProductionCompanies>?,
     @Json(name = "genres") val genres: List<Genre>?,
-
+    @Json(name = "production_companies") val productionCompanies: List<ProductionCompanies>?,
     @Json(name = "name") val name: String?,
-
-    //@Json(name = "release_date") val releaseDate: Date?  //TODO: create a custom converter
+    @Json(name = "release_date") val releaseDate: Date?,
     private val isFavorite: Boolean = false)

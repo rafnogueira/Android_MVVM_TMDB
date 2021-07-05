@@ -1,4 +1,4 @@
-package com.rafael.moviedbapp.ui.main
+package com.rafael.moviedbapp.ui.fragment
 
 import android.content.res.ColorStateList
 import android.os.Bundle

@@ -42,7 +42,7 @@ class MovieCatalogVerticalAdapter constructor(private val context: Context,
 
         filmeHolder.btnAddFavorite?.visibility = if(isLocal) View.GONE else View.VISIBLE
         filmeHolder.btnAddFavorite?.setOnClickListener{
-            filmeHolder.btnAddFavorite?.load(R.drawable.ic_baseline_favorite_24_on)
+            filmeHolder.btnAddFavorite?.load(R.drawable.ic_baseline_favorite_border_32)
             viewModelPtr.insertMovieToFavorites(moviesList[index])
         }
 

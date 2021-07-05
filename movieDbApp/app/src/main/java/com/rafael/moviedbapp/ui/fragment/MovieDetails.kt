@@ -1,4 +1,4 @@
-package com.rafael.moviedbapp.ui.main
+package com.rafael.moviedbapp.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -104,9 +104,16 @@ class MovieDetails : Fragment() {
         currentRootView.txtMovieDetailsSinopseDesc.text = movie.overview ?: ""
         currentRootView.txtViewMovieDetailsUserRating.text = "User rating: " + movie.voteAverage
 
-        val genres = movie.genres?.map { Genre -> Genre.name }
+        var genres = "Genres: \n"
+        movie.genres?.forEach {
+            genres += it.name + ","
+        }
+        genres.dropLast(1)
+
         currentRootView.txtViewMovieDetailsGenres.text = genres?.toString() ?: ""
-        currentRootView.txtViewMovieDetailsPopularity.text = "Popularity" + movie.popularity
+
+        val rating: Float = movie.voteAverage?.toFloat()?.div(2) ?: 0f
+        currentRootView.ratingBarUserRating.rating = rating
 
         currentRootView.movieDetailsProgressWidget.visibility = View.GONE
         currentRootView.movieDetailsScrollView.visibility = View.VISIBLE

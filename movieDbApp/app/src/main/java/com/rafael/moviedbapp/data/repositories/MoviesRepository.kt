@@ -5,15 +5,18 @@ import com.rafael.moviedbapp.data.datasource.MovieApi
 import com.rafael.moviedbapp.data.models.FavoriteMovie
 import com.rafael.moviedbapp.data.models.Genre
 import com.rafael.moviedbapp.data.models.Movie
+import com.rafael.moviedbapp.data.models.MovieImagesResponse
 import fastshop.com.moviedatabase.Models.MovieResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
     private val api: MovieApi,
-    private val favoriteMoviesDao: FavoriteMoviesDao) {
+    private val favoriteMoviesDao: FavoriteMoviesDao
+) {
 
     fun getMovieDetails(movieId: String): Single<Movie> {
         return api.getMovieDetails(movieId)
@@ -47,16 +50,21 @@ class MoviesRepository @Inject constructor(
         api.getTrending(mediaType, timeWindow, page).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getGenres(page: Int? = 1): Single<Genre>? =
+    fun getGenres(page: Int? = 1): Single<Genre> =
         api.getGenres(page).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getMoviesByGenre(genre_id: Int, page: Int? = 1): Single<MovieResponse?> =
+    fun getMoviesByGenre(genre_id: Int, page: Int? = 1): Single<MovieResponse> =
         api.getMoviesByGenre(genre_id, page).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     fun getMoviesByQuery(query: String): Single<MovieResponse> =
         api.getMoviesByQuery(query).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun getMovieImages(movieId: String): Single<MovieImagesResponse> =
+        api.getMoviesImagesPosters(movieId)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     //db local

@@ -7,11 +7,16 @@
 
     <fragment
         android:id="@+id/moviesCatalogHome"
-        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogHome"
+        android:name="com.rafael.moviedbapp.ui.fragment.MoviesCatalogHome"
         android:label="MoviesCatalogHome" >
         <action
             android:id="@+id/action_moviesCatalogHome_to_movieDetails"
-            app:destination="@id/movieDetails" />
+            app:destination="@id/movieDetails"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
         <argument
             android:name="TYPE_FLAG"
             app:argType="string" />
@@ -22,32 +27,40 @@
 
     <fragment
         android:id="@+id/moviesCatalogFavorites"
-        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogFavorites"
+        android:name="com.rafael.moviedbapp.ui.fragment.MoviesCatalogFavorites"
         android:label="movies_catalog_favorites_fragment"
         tools:layout="@layout/fragment_movies_catalog_favorites" >
         <action
             android:id="@+id/action_moviesCatalogFavorites_to_movieDetails"
-            app:destination="@id/movieDetails" />
+            app:destination="@id/movieDetails"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/movieSearch"
-        android:name="com.rafael.moviedbapp.ui.main.MovieCatalogSearch"
+        android:name="com.rafael.moviedbapp.ui.fragment.MovieCatalogSearch"
         android:label="movie_search_fragment"
         tools:layout="@layout/fragment_movie_search" >
         <action
             android:id="@+id/action_movieSearch_to_movieDetails"
-            app:destination="@id/movieDetails" />
+            app:destination="@id/movieDetails"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/moviesCatalogGenre"
-        android:name="com.rafael.moviedbapp.ui.main.MoviesCatalogGenre"
+        android:name="com.rafael.moviedbapp.ui.fragment.MoviesCatalogGenre"
         android:label="MoviesCatalogGenre" />
 
     <fragment
         android:id="@+id/movieDetails"
-        android:name="com.rafael.moviedbapp.ui.main.MovieDetails"
+        android:name="com.rafael.moviedbapp.ui.fragment.MovieDetails"
         android:label="movie_details_fragment"
         tools:layout="@layout/fragment_movie_details" />
 

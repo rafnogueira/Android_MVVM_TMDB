@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../layout/compose-model-1624286186633.xml" value="0.625" />
+        <entry key="../../../../../../layout/compose-model-1624290102705.xml" value="0.3657094594594595" />
+        <entry key="../../../../../../layout/compose-model-1624290669871.xml" value="0.165" />
+        <entry key="../../../../../../layout/compose-model-1624295565812.xml" value="0.25" />
+        <entry key="../../../../../../layout/compose-model-1624543252320.xml" value="0.4583333333333333" />
+        <entry key="../../../../../../layout/compose-model-1624630737538.xml" value="0.45740740740740743" />
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.2947916666666667" />
+        <entry key="../../../../.gradle/caches/transforms-3/6b73a522660d39a36787798ca32a3b7a/transformed/recyclerview-selection-1.1.0/res/drawable/selection_band_overlay.xml" value="0.3875" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3359375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.4527777777777778" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.4947916666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.4947916666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24_off.xml" value="0.4527777777777778" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24_on.xml" value="0.36875" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_32.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_42.xml" value="0.3416666666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.4527777777777778" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.4453125" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4453125" />
+        <entry key="app/src/main/res/drawable/layout.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/layout/favorite_movie_holder.xml" value="0.625" />
+        <entry key="app/src/main/res/layout/fragment_movie_details.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_movie_search.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/fragment_movies_catalog_favorites.xml" value="0.4111516414799375" />
+        <entry key="app/src/main/res/layout/fragment_movies_catalog_genre.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_movies_catalog_home.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/layout.xml" value="0.5635416666666667" />
+        <entry key="app/src/main/res/layout/main_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.34479166666666666" />
+        <entry key="app/src/main/res/layout/movie_card.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/movie_card_holder.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/movie_details_fragment.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/movies_catalog_favorites_fragment.xml" value="0.5252735799895779" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.42086280043874347" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3536458333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

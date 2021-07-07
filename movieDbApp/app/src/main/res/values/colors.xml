@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    //Meu theme
+<!--    <color name="FavoritosCor">#F050B9</color>-->
+    <color name="FavoritosCor">#FF006D</color>
+
+    <color name="mainBackground">#0D1D3A</color>
+    <color name="mainBackgroundDarker">#060D1B</color>
+    <color name="mainBackgroundBackdropAlpha">#22000000</color>
+    <color name="backgroundBottomMenu">#0B1D37</color>
+    <color name="secondaryText">#6B768B</color>
+    <color name="headerTexts">#FFFFFF</color>
+    <color name="linhaDivisoria">#484E74</color>
+    <color name="iconOff">#4F678B</color>
+    <color name="iconOn">#2487FC</color>
+
+</resources>
